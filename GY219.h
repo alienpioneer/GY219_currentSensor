@@ -1,7 +1,7 @@
 #ifndef GY219_LIB
 #define GY219_LIB
 
-#include <Energia.h>
+//#include <Energia.h>
 #include <Arduino.h>
 #include <Wire.h>
 
@@ -21,6 +21,7 @@
 class GY219
 {
     public:
+        void        init                    ();
         void        setCalibration          (int16_t value);
         void        reset                   ();
         uint16_t    readConfiguration       ();
@@ -35,9 +36,10 @@ class GY219
         
     private:
         /// max current 2A
-        float current_LSB = 0.000061035;
+        float   current_LSB = 0.000061035;
+        TwoWire i2c;
 
-}
+};
 
 
 #endif
