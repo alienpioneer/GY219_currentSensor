@@ -1,5 +1,4 @@
 #include "GY219.h"
-#define CALIBRATION 6711
 
 GY219 gy219;
 
@@ -11,9 +10,7 @@ void setup(){
   delay(10);
   gy219.setVoltageRange(16);
   delay(10);
-  gy219.setShuntVoltageRange(3);
-  delay(10);
-  gy219.setCalibration(CALIBRATION);
+  gy219.setCurrentRange(1600);
   Serial.print("CONFIGURATION After: "); 
   Serial.println(gy219.getConfiguration());
   Serial.print("CALIB: ");
@@ -24,7 +21,7 @@ void loop()
 { 
   delay(1000);
   Serial.print("CURRENT: ");
-  Serial.println(gy219.getCurrent());
+  Serial.println(gy219.getCurrent_mA());
   Serial.print("VOLTAGE: ");
   Serial.println(gy219.getBusVoltage());
 }

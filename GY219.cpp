@@ -2,13 +2,13 @@
 
 void GY219::init(){
     i2c.begin();
-    /// max 2A
-    current_LSB = 0.00061035;
+    /// max 2000mA
     reset();
+    setCurrentRange(2000);
 }
 
 
-float GY219::getCurrent(){
+float GY219::getCurrent_mA(){
     /// result is in mA 
     int16_t register_value = readRegister(INA219_CURRENT_REG);
     return register_value*current_LSB;
@@ -107,4 +107,38 @@ byte GY219::writeRegister(uint8_t reg, uint16_t val){
     i2c.write((val >> 8) & 0xFF);
     i2c.write(val & 0xFF);
     return i2c.endTransmission();
+}
+
+
+void GY219::setCurrentRange(uint16_t maxCurrent){
+    /// set max current in mA
+    switch(maxCurrent){
+        case 3200:
+            current_LSB = 0.09765625;
+            CALIBRATION = 4196;
+            GAIN = 4;
+            break;
+        case 2000:
+            current_LSB = 0.061035;
+            CALIBRATION = 6710;
+            GAIN = 4;
+            break;
+        case 1600:
+            current_LSB = 0.04882812;
+            CALIBRATION = 8308;
+            GAIN = 3;
+            break;
+        case 800:
+            current_LSB = 0.02441406;
+            CALIBRATION = 16778;
+            GAIN = 2;
+            break;
+        case 400:
+            current_LSB = 0.01220703;
+            CALIBRATION = 33554;
+            GAIN = 1;
+            break;
+    }
+    setCalibration(CALIBRATION);
+    setShuntVoltageRange(GAIN);
 }
