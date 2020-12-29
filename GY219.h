@@ -16,27 +16,28 @@
 #define INA219_POWER_REG          0x03
 #define INA219_CURRENT_REG        0x04
 #define INA219_CALIBRATION_REG    0x05
-#define CALIBRATION               6711
+
 
 class GY219
 {
     public:
         void        init                    ();
-        void        setCalibration          (int16_t value);
         void        reset                   ();
-        uint16_t    readConfiguration       ();
+        void        setCalibration          (uint16_t value);
+        uint16_t    getConfiguration       ();
+        uint16_t    getCalibration         ();
         void        setVoltageRange         (uint8_t range);
-        void        setShuntVoltageRange    (uint8_t value);
+        void        setShuntVoltageRange    (uint8_t gain);
         float       getBusVoltage           ();
         float       getCurrent              ();
-
+        
+    public:
+        float       current_LSB;
     private:
         byte        writeRegister           (uint8_t reg, uint16_t val);
         uint16_t    readRegister            (uint8_t reg);
         
     private:
-        /// max current 2A
-        float   current_LSB = 0.000061035;
         TwoWire i2c;
 
 };

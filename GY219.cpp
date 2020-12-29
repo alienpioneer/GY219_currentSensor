@@ -2,17 +2,21 @@
 
 void GY219::init(){
     i2c.begin();
+    /// max 2A
+    current_LSB = 0.00061035;
+    reset();
 }
 
 
-float GY219::getCurrent(){ 
+float GY219::getCurrent(){
+    /// result is in mA 
     int16_t register_value = readRegister(INA219_CURRENT_REG);
     return register_value*current_LSB;
 }
 
 
 float GY219::getBusVoltage(){ 
-    /// result is in mV
+    /// result is in V
     /// no overflow check, LSB = 4mV
     /// result = (register_val >> 3)* LSB
     uint16_t busVoltage = readRegister(INA219_BUS_VOLTAGE_REG);
@@ -21,45 +25,59 @@ float GY219::getBusVoltage(){
 }
 
 
-void GY219::setCalibration(int16_t value){ 
+void GY219::setCalibration(uint16_t value){ 
     writeRegister(INA219_CALIBRATION_REG, value);
 }
+
 
 void GY219::setVoltageRange(uint8_t range){
     uint16_t register_val = readRegister(INA219_CONF_REG);
     if (16 == range){
-    register_val &= ~0x2000; 
+      register_val &= ~0x2000; 
     }
     else if (32 == range){
-    register_val |= 0x2000;
+      register_val |= 0x2000;
     }
     writeRegister(INA219_CONF_REG, register_val);
 }
 
-void GY219::setShuntVoltageRange(uint8_t value){
+
+void GY219::setShuntVoltageRange(uint8_t gain){
     /// Set PGA range - 1-4 (40, 80, 160, 320mV)
     uint16_t register_val = readRegister(INA219_CONF_REG);
-    switch(value){
-    case 1:
-        /// 40 mV
-        register_val &= ~0x1800;
-    case 2:
-        /// 80 mV
-        register_val &= ~0x1000;
-        register_val |= 0x0800;
-    case 3:
-        /// 160 mV
-        register_val |= 0x1000;
-        register_val &= ~0x0800;
-    case 4:
-        /// 320 mV
-        register_val |= 0x1800;
+    switch(gain){
+      case 1:
+          /// 40 mV
+          register_val &= ~(0x1800);
+          break;
+      case 2:
+          /// 80 mV
+          register_val &= ~(0x1000);
+          register_val |= 0x0800;
+          break;
+      case 3:
+          /// 160 mV
+          register_val |= 0x1000;
+          register_val &= ~(0x800);
+          break;
+      case 4:
+          /// 320 mV
+          register_val |= 0x1800;
+          break;
     }
+    writeRegister(INA219_CONF_REG, register_val);
 }
 
-uint16_t GY219::readConfiguration(){
+
+uint16_t GY219::getConfiguration(){
     return readRegister(INA219_CONF_REG);
 }
+
+
+uint16_t GY219::getCalibration(){
+    return readRegister(INA219_CALIBRATION_REG);
+}
+
 
 void GY219::reset(){
     uint16_t register_val = readRegister(INA219_CONF_REG);
