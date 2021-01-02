@@ -83,27 +83,32 @@ void GY219::setCurrentRange(uint16_t maxCurrent){
     switch(maxCurrent){
         case 3200:
             current_LSB = 0.0976562;
-            CALIBRATION = 4196;
+            CALIBRATION = 4248;
+            //CALIBRATION = 4196;
             GAIN = 4;
             break;
         case 2000:
             current_LSB = 0.0610350;
-            CALIBRATION = 6710;
+            CALIBRATION = 6794;
+            //CALIBRATION = 6710;
             GAIN = 4;
             break;
         case 1600:
             current_LSB = 0.0488281;
-            CALIBRATION = 8308;
+            CALIBRATION = 8412;
+            //CALIBRATION = 8308;
             GAIN = 3;
             break;
         case 800:
             current_LSB = 0.0244140;
-            CALIBRATION = 16778;
+            CALIBRATION = 16988;
+            //CALIBRATION = 16778;
             GAIN = 2;
             break;
         case 400:
             current_LSB = 0.0122070;
-            CALIBRATION = 33554;
+            CALIBRATION = 33976;
+            //CALIBRATION = 33554;
             GAIN = 1;
             break;
     }
