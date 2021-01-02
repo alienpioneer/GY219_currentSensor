@@ -24,22 +24,29 @@ class GY219
         void        init                    ();
         void        reset                   ();
         void        setCalibration          (uint16_t value);
-        uint16_t    getConfiguration       ();
-        uint16_t    getCalibration         ();
         void        setVoltageRange         (uint8_t range);
         void        setShuntVoltageRange    (uint8_t gain);
-        float       getBusVoltage           ();
-        float       getCurrent              ();
-        
+        void        setCurrentRange         (uint16_t maxCurrent);
+        uint16_t    getConfiguration        ();
+        uint16_t    getCalibration          ();
+        float       getBusVoltage_mV        ();
+        float       getCurrent_mA           ();
+        void        autoRange               ();
+
     public:
         float       current_LSB;
+        uint16_t    CALIBRATION;
+        uint8_t     GAIN;
+        float       previousCurrentRecord;
+        float       previousVoltageRecord;
+
     private:
         byte        writeRegister           (uint8_t reg, uint16_t val);
         uint16_t    readRegister            (uint8_t reg);
         
     private:
-        TwoWire i2c;
-
+        TwoWire     i2c;
+        
 };
 
 
