@@ -1,6 +1,9 @@
 #include "GY219.h"
 
 void GY219::init(){
+    #ifdef MSP430
+    i2c.setModule(0);
+    #endif
     i2c.begin();
     /// max 2000mA
     reset();

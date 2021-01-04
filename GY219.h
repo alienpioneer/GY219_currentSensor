@@ -1,14 +1,22 @@
+#pragma once
+#include <Wire.h>
+
+#ifdef MSP430
+#include <Energia.h>
+#else
+#include <Arduino.h>
+#endif
+
 #ifndef GY219_LIB
 #define GY219_LIB
 
-//#include <Energia.h>
-#include <Arduino.h>
-#include <Wire.h>
+
 
 #define INA219_ADDR 0x40
 /// INA219 address is 0x80 
 /// Arduino Wire library shifts the adddress left
 /// and adds 0 or 1 to LSB for read or write 
+/// so that 0x40 becomes 0x80 or 0x81
 
 #define INA219_CONF_REG           0x00
 #define INA219_SHUNT_VOLTAGE_REG  0x01
