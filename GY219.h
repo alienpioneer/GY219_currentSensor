@@ -7,8 +7,8 @@
 #include <Arduino.h>
 #endif
 
-#ifndef GY219_LIB
-#define GY219_LIB
+#ifndef GY219_h
+#define GY219_h
 
 
 

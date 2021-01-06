@@ -1,9 +1,9 @@
 #include "GY219.h"
 
 void GY219::init(){
-    #ifdef MSP430
+#ifdef MSP430
     i2c.setModule(0);
-    #endif
+#endif
     i2c.begin();
     /// max 2000mA
     reset();
@@ -169,7 +169,7 @@ uint16_t GY219::readRegister(uint8_t reg){
     MSB = i2c.read();
     LSB = i2c.read();
     }
-return ((MSB<<8) + LSB);
+    return ((MSB<<8) + LSB);
 }
 
 
