@@ -6,4 +6,4 @@ The device I2C address is 0x80, but the arduino wire library shifts the address 
 So, if using the Arduino Wire library the address must be 0x40, since 0x40 << 1 = 0x80.
 
 # Current Calculation
-The current is calculated the based on the calibration value into the calibration register. 
+The current is calculated the based on the calibration value into the calibration register. This register must have a calibration value for the current measurement to be calculted correctly.Current = calibration_value * current_LSB.
