@@ -1,5 +1,7 @@
 # GY219 Current Sensor
-Current sensor based on INA219, with a 0.1 ohms shunt resistor. The registers are 16 bit registers.Maximum current is 3.2 Ampers for a PGA value of 8x.
+Current sensor based on INA219.Tested with Arduino Nano and MSP430.
+The shunt resistor value is 0.1 ohms.The registers are 16 bit registers.Maximum current is 3.2 Ampers for a PGA value of 8x.
+
 <pre>
                  R Shunt
  Supply ----> + /\/\/\/\/\/-> + -----> Load
