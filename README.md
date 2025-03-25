@@ -1,6 +1,6 @@
 # GY219 Current Sensor
-Current sensor based on INA219.Tested with Arduino Nano and MSP430.
-The shunt resistor value is 0.1 ohms.The registers are 16 bit registers.Maximum current is 3.2 Ampers for a PGA value of 8x.
+Current sensor based on INA219. Tested with Arduino Nano and MSP430 (16 bit).
+The shunt resistor value is 0.1 ohms. Maximum current is 3.2 Ampers for a PGA value of 8x.
 
 <pre>
                  R Shunt
@@ -12,7 +12,7 @@ V Shunt = Vin+ - Vin-.
 
 
 # I2C Address
-The device I2C address is 0x80, but the arduino wire library shifts the address to the left by one bit to add the read/write bit at the LSB.
+The device I2C address is 0x80, but the Arduino wire library shifts the address to the left by one bit to add the read/write bit at the LSB.
 So, if using the Arduino Wire library the address must be 0x40, since 0x40 << 1 = 0x80.
 
 # Current Calculation
@@ -34,4 +34,4 @@ The PGA increases the full scale range to x2, x4, x8 times.
 40mV x4 = 160mV -> 1.6A max current
 40mV x8 = 320mV -> 3.2A max current
 
-This library automatically adjusts the measuring scale, depending on the input voltage.just call the autoRange( function).
+This library automatically adjusts the measuring scale, depending on the input voltage. Just call the autoRange function.
